@@ -5366,28 +5366,49 @@ a.ashade-logo {
 
 }
 
-.ashade-testimonials-carousel .ashade-testimonials-item__author .ashade-testimonials-item__author--image {
-
-    width: 100px !important;
-
-    height: 100px !important;
-
-    top: 40% !important;
-
-}
-
-.ashade-testimonials-carousel .ashade-testimonials-item__author--name{
-
-	margin-left: 4rem !important;
-
-}
-
+/* Modern Testimonials Reviewer / Candidate Layout - No Overlap */
 .ashade-testimonials-carousel .ashade-testimonials-item__author {
-
-    min-height: 130px !important;
-
-    margin-top: 0;
-
+    margin: 28px auto 10px auto !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 16px !important;
+    position: relative !important;
+    padding: 0 !important;
+    min-height: auto !important;
+    text-align: left !important;
+}
+.ashade-testimonials-carousel .ashade-testimonials-item__author .ashade-testimonials-item__author--image {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 62px !important;
+    height: 62px !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+.ashade-testimonials-carousel .ashade-testimonials-item__author .ashade-testimonials-item__author--image img {
+    width: 62px !important;
+    height: 62px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 2px solid #c98a44 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+    display: block !important;
+}
+.ashade-testimonials-carousel .ashade-testimonials-item__author--name {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    z-index: 3 !important;
+    text-align: left !important;
+}
+.ashade-testimonials-carousel .ashade-testimonials-item__author h6 {
+    margin: 0 !important;
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
 }
 
 .before-after-carousel .owl-nav a {

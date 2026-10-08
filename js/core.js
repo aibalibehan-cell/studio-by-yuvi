@@ -24,7 +24,7 @@ var ashade = {
 // Default Options
 ashade.config = {
     'smooth_ease' : 0.1,
-	'content_load_delay': 0.8
+	'content_load_delay': 0.1
 }
 
 class Ashade_Before_After {
@@ -546,22 +546,34 @@ ashade.sScroll = {
 	layout: function() {
 		if ($ashade_scroll.length) {
 			let this_content = $ashade_scroll.children('.ashade-content');
-			this_content.css('min-height', '0px');
 			
-			// Set Body Height (for smooth scroll)
-			if ($ashade_scroll.height() <= $ashade_window.height()) {
-				let min_height = $ashade_window.height() - $ashade_footer.height();
-
-				if (!$ashade_body.hasClass('no-header-padding'))
-					min_height = min_height - $ashade_scroll.children('.ashade-header-holder').height();
-
-				this_content.css('min-height', min_height+'px');				
-				$ashade_scroll.addClass('is-centered');
+			if ($ashade_body.hasClass('ashade-centered-template') || $ashade_body.hasClass('ashade-maintenance-template')) {
+				this_content.css('min-height', '0px');
+				if ($ashade_scroll.height() <= $ashade_window.height()) {
+					let hHolder = $ashade_scroll.children('.ashade-header-holder');
+					let hHolderHeight = (hHolder.length && hHolder.height()) ? hHolder.height() : ($ashade_header.height() || 0);
+					let fHeight = ($ashade_footer.length && $ashade_footer.height()) ? $ashade_footer.height() : 0;
+					let min_height = $ashade_window.height() - fHeight;
+					if (!$ashade_body.hasClass('no-header-padding')) {
+						min_height = min_height - hHolderHeight;
+					}
+					if (!isNaN(min_height) && min_height > 0) {
+						this_content.css('min-height', min_height + 'px');
+					}
+					$ashade_scroll.addClass('is-centered');
+				} else {
+					$ashade_scroll.removeClass('is-centered');
+				}
 			} else {
 				$ashade_scroll.removeClass('is-centered');
+				this_content.css('min-height', '0px');
 			}
+
 			if ($ashade_body.hasClass('ashade-smooth-scroll')) {
-				$ashade_body.height($ashade_scroll.height());
+				let scrollH = $ashade_scroll.height();
+				if ($ashade_body.height() !== scrollH) {
+					$ashade_body.height(scrollH);
+				}
 			}
 		}
 	}
@@ -1515,15 +1527,18 @@ ashade.loading = function() {
 		if ($ashade_window.width() < 760) {
 			contentDelay = 0.5;
 		}
-		gsap.from('.ashade-content', {
-			opacity: 0,
-			y: 100,
-			duration: 1,
-			delay: contentDelay,
-			onStart: function() {
-				ashade.content_loaded();
+		gsap.fromTo('.ashade-content', 
+			{ opacity: 0, y: 20 },
+			{
+				opacity: 1,
+				y: 0,
+				duration: 0.35,
+				delay: 0.05,
+				onStart: function() {
+					ashade.content_loaded();
+				}
 			}
-		});
+		);
 	}
 	
 	// Show Albums Ribbon Content
